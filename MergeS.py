@@ -34,7 +34,8 @@ def merge(left, right):
     return res
 
 
-in_data = [int(i) for i in input('Введите массив чисел\n').split()]
-sorted_data = merge_sort(in_data)
-print(sorted_data)
-
+# Пример использования
+arr = [64, 34, 25, 12, 22, 11, 90]
+sorted_arr = merge_sort(arr)
+print("Отсортированный массив:")
+print(*sorted_arr)
