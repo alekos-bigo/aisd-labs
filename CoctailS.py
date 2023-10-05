@@ -3,7 +3,7 @@ def cocktail_sort(arr):
     swapped = True
     start = 0
     end = n - 1
-    while (swapped == True):
+    while swapped:
         # сбрасываем флаг swapped на каждой итерации,
         # чтобы проверить, нужно ли еще продолжать сортировку
         swapped = False
@@ -15,7 +15,7 @@ def cocktail_sort(arr):
                 swapped = True
 
         # если не было перестановок, то массив уже отсортирован
-        if (swapped == False):
+        if not swapped:
             break
 
         # иначе, сбрасываем флаг swapped и двигаемся справа налево
