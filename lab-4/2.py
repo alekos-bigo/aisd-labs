@@ -172,10 +172,7 @@ def decode_path(path):
     final_path = []
 
     for index in path:
-        for station in stations:
-            if station['index'] == index:
-                final_path.append(station['station'])
-                break
+        final_path.append(stations[index]['station'])
 
     return final_path
 
