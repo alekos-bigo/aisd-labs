@@ -35,8 +35,6 @@ def dfs(iv, jv, path):
     used[iv][jv] = False
 
 
-
-l = 1
 for i in range(1, n):
     if matr[i][0] == 0:
         dfs(i, 0, [(i, 0)])
@@ -47,22 +45,8 @@ if ans[0] == -1 and ans[1] == -1:
     print("В лабиринте нет выхода")
 else:
     print(f'Выход из лабиринта находится на {ans[0]+1} строке в {ans[1]+1} столбце')
-    for i in range(n):
-        for j in range(n):
-            if matr[i][j] == 1:
-                if (i == 0 or i == n-1) and (j != 0 and j != n-1):
-                    matr[i][j] = "-"
-                elif (i != 0 and i != n - 1) and (j == 0 or j == n - 1):
-                    matr[i][j] = "|"
-                elif (i == 0 and j == 0) or (i == n-1 and j == 0) or (i == n-1 and j == n-1) or (i == 0 and j == n-1):
-                    matr[i][j] = "+"
-                else:
-                    matr[i][j] = "#"
-            else:
-                matr[i][j] = "O"
     for tp in ans[2]:
         matr[tp[0]][tp[1]] = "X"
-
 
     for i in range(n):
         print(*matr[i])
