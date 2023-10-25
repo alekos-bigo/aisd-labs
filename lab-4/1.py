@@ -1,16 +1,16 @@
 def bracket_balance(text):
     brackets = {'}': '{', ']': '[', ')': '('}
     stack = []
-    for char in text:
+    for i, char in enumerate(text):
         if char not in brackets:
             stack.append(char)
         else:
             if not stack:
-                return False
+                return i
             if stack[-1] == brackets[char]:
                 stack.pop()
             else:
-                return False
+                return i
     return not stack
 
 
