@@ -1,6 +1,6 @@
 def mo(p):
     n = len(p)
-    m = [[0 for x in range(n)] for x in range(n)]
+    m = [[0 for _ in range(n)] for _ in range(n)]
 
     for i in range(1, n):
         m[i][i] = 0
@@ -9,10 +9,10 @@ def mo(p):
         for i in range(1, n - L + 1):
             j = i + L - 1
 
-            m[i][j] = int(1e9+7)
+            m[i][j] = int(1e9 + 7)
 
             for k in range(i, j):
-                q = m[i][k] + m[k + 1][j] + p[i - 1]*p[k]*p[j]
+                q = m[i][k] + m[k + 1][j] + p[i - 1] * p[k] * p[j]
                 if q < m[i][j]:
                     m[i][j] = q
 
@@ -28,4 +28,3 @@ for i in matr:
 df.append(matr[-1][1])
 ans = mo(df)
 print(f'Минимальное число операций {ans}')
-
