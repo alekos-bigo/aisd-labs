@@ -1,7 +1,3 @@
-M = int(input("Введите длину массива для значений: "))
-hash_map = {}
-
-
 def crc8(data):
     crc = 0
     for byte in data:
@@ -19,15 +15,13 @@ def div_hash(s_to_hash: str):
     res = 0
     for char in s_to_hash:
         res += ord(char)
-    return int(res) % M
+    return res % M
 
 
-try:
-    while True:
+if __name__ == "__main__":
+    M = int(input("Введите длину массива для значений: "))
+    hash_map = {}
+    for _ in range(M):
         s = input("Введите значение: ")
         hash_map[s] = div_hash(s)
-except KeyboardInterrupt:
-    print()
     print(hash_map)
-    print(crc8(bytes(s, encoding="utf-8")))
-    exit()
