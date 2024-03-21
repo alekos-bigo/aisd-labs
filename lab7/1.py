@@ -1,3 +1,17 @@
+import time
+
+
+def timer(func):
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        result = func(*args, **kwargs)
+        end_time = time.time()
+        print(f"Время выполнения функции {func.__name__}: {end_time - start_time} секунд")
+        return result
+
+    return wrapper
+
+
 def fibonacci() -> str:
     fib = [0, 1]
     for i in range(2, 500):
@@ -58,28 +72,34 @@ def rabin_karp_alg(s, sub_s):
     return c
 
 
+def preprocess_bad_character(sub_s):
+    bad_char = {}
+    for i in range(len(sub_s)):
+        bad_char[sub_s[i]] = i
+    return bad_char
+
+
 def boyer_mur(s, sub_s):
     m = len(sub_s)
-    l, r = 0, len(sub_s)
+    n = len(s)
     c = 0
-    while r < len(s) + 1:
-        for k in range(1, m+1):
-            new_sub_s = s[l:r]
-            if sub_s[0-k] != new_sub_s[0-k]:
-                j = 1
-                while m > k+j:
-                    if sub_s[0 - k - j] == new_sub_s[0 - k]:
-                        break
-                    j += 1
-                l += j
-                r += j
-        if sub_s == s[l:r]:
+    bad_char = preprocess_bad_character(sub_s)
+    s_idx = 0
+    while s_idx <= n - m:
+        sub_idx = m - 1
+        while sub_idx >= 0 and sub_s[sub_idx] == s[s_idx + sub_idx]:
+            sub_idx -= 1
+        if sub_idx == -1:
             c += 1
-            l += m
-            r += m
+            s_idx += m
+        else:
+            if s[s_idx + sub_idx] in bad_char:
+                s_idx += max(1, sub_idx - bad_char[s[s_idx + sub_idx]])
+            else:
+                s_idx += sub_idx + 1
     return c
 
-
+@timer
 def print_res(s: str, set_of_sub_s: set, alg):
     c_max = -float("inf")
     for sub_s in set_of_sub_s:
@@ -96,7 +116,7 @@ def main():
     print_res(s, set_of_sub_s, naive_alg)
     print_res(s, set_of_sub_s, rabin_karp_alg)
     print_res(s, set_of_sub_s, boyer_mur)
-    
+
 
 if __name__ == "__main__":
     main()
