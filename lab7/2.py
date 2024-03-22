@@ -23,7 +23,8 @@ def check_plagiarism_naive(original_words: list, plagiarism_words: list):
     for word in list_of_plagiarism_threes:
         if word in set_of_original_threes:
             c += 1
-    return c / len(list_of_plagiarism_threes) * 100
+    res = c / len(list_of_plagiarism_threes) * 100
+    return round(res, 2)
 
 
 def main():

@@ -6,7 +6,7 @@ def timer(func):
         start_time = time.time()
         result = func(*args, **kwargs)
         end_time = time.time()
-        print(f"Время выполнения функции {func.__name__}: {end_time - start_time} секунд")
+        print(f"Время выполнения функции {func.__name__}: {end_time - start_time} секунд\n")
         return result
 
     return wrapper
@@ -99,6 +99,40 @@ def boyer_mur(s, sub_s):
                 s_idx += sub_idx + 1
     return c
 
+
+def compute_prefix_function(pattern):
+    prefix = [0] * len(pattern)
+    j = 0
+    for i in range(1, len(pattern)):
+        while j > 0 and pattern[j] != pattern[i]:
+            j = prefix[j - 1]
+        if pattern[j] == pattern[i]:
+            j += 1
+        prefix[i] = j
+    return prefix
+
+
+def kmp_search(text, pattern):
+    prefix_function = compute_prefix_function(pattern)
+    j = 0
+    count = {}
+    for i in range(len(text)):
+        while j > 0 and pattern[j] != text[i]:
+            j = prefix_function[j - 1]
+        if pattern[j] == text[i]:
+            j += 1
+        if j == len(pattern):
+            if text[i - len(pattern) + 1:i + 1] in count:
+                count[text[i - len(pattern) + 1:i + 1]] += 1
+            else:
+                count[text[i - len(pattern) + 1:i + 1]] = 1
+            j = prefix_function[j - 1]
+
+    max_count = max(count.values())
+
+    return max_count
+
+
 @timer
 def print_res(s: str, set_of_sub_s: set, alg):
     c_max = -float("inf")
@@ -107,7 +141,7 @@ def print_res(s: str, set_of_sub_s: set, alg):
         if c > c_max:
             val = sub_s
             c_max = c
-    print(f"value - {val}\ncount - {c_max}\n")
+    print(f"value - {val}\ncount - {c_max}")
 
 
 def main():
@@ -116,6 +150,7 @@ def main():
     print_res(s, set_of_sub_s, naive_alg)
     print_res(s, set_of_sub_s, rabin_karp_alg)
     print_res(s, set_of_sub_s, boyer_mur)
+    print_res(s, set_of_sub_s, kmp_search)
 
 
 if __name__ == "__main__":
