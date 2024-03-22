@@ -113,24 +113,23 @@ def compute_prefix_function(pattern):
 
 
 def kmp_search(text, pattern):
+    m = len(pattern)
+    n = len(text)
     prefix_function = compute_prefix_function(pattern)
-    j = 0
-    count = {}
-    for i in range(len(text)):
-        while j > 0 and pattern[j] != text[i]:
-            j = prefix_function[j - 1]
-        if pattern[j] == text[i]:
+    count = 0
+    idx = 0
+    while idx <= n - m:
+        j = 0
+        while j < m and text[idx + j] == pattern[j]:
             j += 1
-        if j == len(pattern):
-            if text[i - len(pattern) + 1:i + 1] in count:
-                count[text[i - len(pattern) + 1:i + 1]] += 1
-            else:
-                count[text[i - len(pattern) + 1:i + 1]] = 1
-            j = prefix_function[j - 1]
+        prefix_function_of_text = compute_prefix_function(text[idx:idx+m])
+        if j == m:
+            count += 1
+            idx += j
+        else:
+            idx += j - prefix_function_of_text[j] + 1
+    return count
 
-    max_count = max(count.values())
-
-    return max_count
 
 
 @timer
