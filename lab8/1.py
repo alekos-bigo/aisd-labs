@@ -16,8 +16,8 @@ async def fetch_all_pages(urls: list[str]):
 
 async def main():
     urls = [
-        "https://github.com/",
-        "https://gitlab.com/",
+        "https://phet-dev.colorado.edu/html/build-an-atom/0.0.0-3/simple-text-only-test-page.html",
+        "https://web.ics.purdue.edu/~gchopra/class/public/pages/webdesign/05_simple.html",
     ]
 
     pages = await fetch_all_pages(urls)
@@ -26,6 +26,7 @@ async def main():
         print(f"Page from {url}:")
         print(page)
         print("-----------------------------")
+        print("\n")
 
 
 if __name__ == "__main__":
