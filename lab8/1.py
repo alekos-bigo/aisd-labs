@@ -23,7 +23,7 @@ async def main():
     pages = await fetch_all_pages(urls)
 
     for url, page in zip(urls, pages):
-        print(f"Page from {url}:")
+        print(f"Страница: {url}:")
         print(page)
         print("-----------------------------")
         print("\n")
