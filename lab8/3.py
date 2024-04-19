@@ -36,8 +36,12 @@ async def main():
     ]
     word_counts = await count_common_words_in_files(files_to_process)
     if word_counts:
+        i = 1
         for word, count in word_counts.items():
-            print(f"Слово: \"{word}\". Количество: {count}")
+            print(f"Слово: \"{word}\".{' '*(30 - len(f'Слово: {word}.'))}Количество: {count}", end=' '*(50 - len(f"Слово: \"{word}\".{' '*(30 - len(f'Слово: {word}.'))}Количество: {count}")))
+            if i % 2 == 0:
+                print()
+            i += 1
     else:
         print("В файлах нет общих слов")
 
