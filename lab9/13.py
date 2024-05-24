@@ -27,7 +27,7 @@ def main():
     ]
     for test_number, test_array in enumerate(test_arrays):
         print(f"Test: {test_number + 1}")
-        print(f"Sub array: {sub_arrays_with_simple_sum(test_array)}")
+        print(f"Sub arrays: {sub_arrays_with_simple_sum(test_array)}")
         print()
 
 
